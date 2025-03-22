@@ -1,4 +1,5 @@
 import pages/home
+import pages/records
 import pages/tables_list
 import wisp.{type Request, type Response}
 
@@ -20,6 +21,7 @@ pub fn handle_request(req: Request) -> Response {
   case wisp.path_segments(req) {
     [] -> home.home_page(req)
     ["tables"] -> tables_list.tables_list_page(req)
+    ["tables", table_name] -> records.records_page(req, table_name)
     _ -> wisp.not_found()
   }
 }

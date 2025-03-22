@@ -1,4 +1,5 @@
 import pages/home
+import pages/tables_list
 import wisp.{type Request, type Response}
 
 pub fn middleware(
@@ -18,6 +19,7 @@ pub fn handle_request(req: Request) -> Response {
 
   case wisp.path_segments(req) {
     [] -> home.home_page(req)
+    ["tables"] -> tables_list.tables_list_page(req)
     _ -> wisp.not_found()
   }
 }

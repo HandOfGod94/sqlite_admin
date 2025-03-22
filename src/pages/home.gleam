@@ -1,74 +1,58 @@
 import layouts/base
-import lustre/attribute
+import lustre/attribute.{class, href, placeholder, type_}
 import lustre/element
-import lustre/element/html
+import lustre/element/html.{a, div, form, h1, h5, input, p}
 import wisp.{type Request, type Response}
 
 fn page_content() {
   let header =
-    html.div([attribute.class("bg-primary text-white p-4 mb-4")], [
-      html.h1([attribute.class("display-4")], [element.text("SQLite Admin")]),
-      html.p([attribute.class("lead")], [
+    div([class("bg-primary text-white p-4 mb-4")], [
+      h1([class("display-4")], [element.text("SQLite Admin")]),
+      p([class("lead")], [
         element.text("Manage your SQLite databases with ease"),
       ]),
     ])
 
   let main_content =
-    html.div([attribute.class("container mt-4")], [
-      html.div([attribute.class("row")], [
-        html.div([attribute.class("col-md-6 mb-4")], [
-          html.div([attribute.class("card")], [
-            html.div([attribute.class("card-header")], [
-              html.h5([attribute.class("card-title mb-0")], [
+    div([class("container mt-4")], [
+      div([class("row")], [
+        div([class("col-md-6 mb-4")], [
+          div([class("card")], [
+            div([class("card-header")], [
+              h5([class("card-title mb-0")], [
                 element.text("Database Connection"),
               ]),
             ]),
-            html.div([attribute.class("card-body")], [
-              html.form([], [
-                html.div([attribute.class("mb-3")], [
-                  html.div([attribute.class("form-label")], [
-                    element.text("Database Path"),
-                  ]),
-                  html.input([
-                    attribute.class("form-control"),
-                    attribute.type_("text"),
-                    attribute.placeholder("Enter database path"),
+            div([class("card-body")], [
+              form([], [
+                div([class("mb-3")], [
+                  div([class("form-label")], [element.text("Database Path")]),
+                  input([
+                    class("form-control"),
+                    type_("text"),
+                    placeholder("Enter database path"),
                   ]),
                 ]),
-                html.button(
-                  [
-                    attribute.class("btn btn-primary"),
-                    attribute.type_("submit"),
-                  ],
-                  [element.text("Connect")],
-                ),
+                a([class("btn btn-primary"), href("/tables")], [
+                  element.text("Connect"),
+                ]),
               ]),
             ]),
           ]),
         ]),
-        html.div([attribute.class("col-md-6 mb-4")], [
-          html.div([attribute.class("card")], [
-            html.div([attribute.class("card-header")], [
-              html.h5([attribute.class("card-title mb-0")], [
-                element.text("Recent Databases"),
-              ]),
+        div([class("col-md-6 mb-4")], [
+          div([class("card")], [
+            div([class("card-header")], [
+              h5([class("card-title mb-0")], [element.text("Recent Databases")]),
             ]),
-            html.div([attribute.class("card-body")], [
-              html.div([attribute.class("list-group")], [
-                html.a(
-                  [
-                    attribute.class("list-group-item list-group-item-action"),
-                    attribute.href("#"),
-                  ],
-                  [element.text("example.db")],
-                ),
-                html.a(
-                  [
-                    attribute.class("list-group-item list-group-item-action"),
-                    attribute.href("#"),
-                  ],
-                  [element.text("test.db")],
-                ),
+            div([class("card-body")], [
+              div([class("list-group")], [
+                a([class("list-group-item list-group-item-action"), href("#")], [
+                  element.text("example.db"),
+                ]),
+                a([class("list-group-item list-group-item-action"), href("#")], [
+                  element.text("test.db"),
+                ]),
               ]),
             ]),
           ]),

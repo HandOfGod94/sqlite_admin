@@ -35,7 +35,7 @@ fn page_content(
 
   let navigation =
     nav([class("mb-4")], [
-      a([class("btn btn-outline-primary me-2"), href("/tables")], [
+      a([class("btn btn-outline-primary me-2"), href("/admin/tables")], [
         element.text("← Back to Tables"),
       ]),
     ])

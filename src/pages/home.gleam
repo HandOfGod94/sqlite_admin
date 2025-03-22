@@ -33,7 +33,7 @@ fn page_content() {
                     placeholder("Enter database path"),
                   ]),
                 ]),
-                a([class("btn btn-primary"), href("/tables")], [
+                a([class("btn btn-primary"), href("/admin/tables")], [
                   element.text("Connect"),
                 ]),
               ]),

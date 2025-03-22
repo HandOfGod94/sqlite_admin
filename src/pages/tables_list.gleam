@@ -1,31 +1,26 @@
-import gleam/int
 import gleam/list
+import introspect/table
 import layouts/base
 import lustre/attribute.{class, href}
 import lustre/element
 import lustre/element/html.{a, div, h1, nav, table, td, th, tr}
 import wisp.{type Request, type Response}
 
-type TableData {
-  TableData(name: String, row_count: Int)
-}
-
-fn render_table_row(table_data: TableData) -> element.Element(a) {
+fn render_table_row(table_name: String) -> element.Element(a) {
   tr([], [
-    td([], [element.text(table_data.name)]),
-    td([], [element.text(int.to_string(table_data.row_count))]),
+    td([], [element.text(table_name)]),
     td([], [
       a(
         [
           class("btn btn-sm btn-primary me-2"),
-          href("/tables/" <> table_data.name),
+          href("/admin/tables/" <> table_name <> "/records"),
         ],
         [element.text("View")],
       ),
       a(
         [
           class("btn btn-sm btn-danger"),
-          href("/tables/" <> table_data.name <> "/delete"),
+          href("/admin/tables/" <> table_name <> "/delete"),
         ],
         [element.text("Delete")],
       ),
@@ -33,7 +28,7 @@ fn render_table_row(table_data: TableData) -> element.Element(a) {
   ])
 }
 
-fn page_content(tables: List(TableData)) {
+fn page_content(tables: List(String)) {
   let header =
     div([class("bg-primary text-white p-4 mb-4")], [
       h1([class("display-4")], [element.text("Database Tables")]),
@@ -41,7 +36,7 @@ fn page_content(tables: List(TableData)) {
 
   let navigation =
     nav([class("mb-4")], [
-      a([class("btn btn-outline-primary me-2"), href("/")], [
+      a([class("btn btn-outline-primary me-2"), href("/admin")], [
         element.text("← Back to Home"),
       ]),
     ])
@@ -51,7 +46,6 @@ fn page_content(tables: List(TableData)) {
   let header_row = [
     tr([], [
       th([], [element.text("Table Name")]),
-      th([], [element.text("Row Count")]),
       th([], [element.text("Actions")]),
     ]),
   ]
@@ -71,13 +65,9 @@ fn page_content(tables: List(TableData)) {
 }
 
 pub fn tables_list_page(_req: Request) -> Response {
-  let dummy_tables = [
-    TableData("users", 150),
-    TableData("products", 75),
-    TableData("orders", 300),
-  ]
+  let tables = table.get_tables()
 
-  let html = page_content(dummy_tables)
+  let html = page_content(tables)
 
   wisp.ok()
   |> wisp.html_body(element.to_string_builder(html))

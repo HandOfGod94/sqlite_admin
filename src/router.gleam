@@ -13,7 +13,7 @@ pub fn middleware(
   use <- wisp.log_request(req)
   use <- wisp.rescue_crashes
   use req <- wisp.handle_head(req)
-  use <- middleware.admin_middleware(req: req, db: db, prefix: "admin")
+  use <- middleware.admin_middleware(req, middleware.AdminConfig(db, "admin"))
 
   handle_request(req)
 }

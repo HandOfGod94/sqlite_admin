@@ -8,10 +8,10 @@ import introspect/values
 import sqlight
 
 pub fn fetch_records(
+  conn: sqlight.Connection,
   table_name: String,
   table_schema: table.TableSchema,
 ) -> Result(List(List(String)), sqlight.Error) {
-  use conn <- sqlight.with_connection("./sample.db")
   use query_result <- result.try(
     s.new()
     |> s.selects(list.map(table_schema.columns, fn(x) { s.col(x.name) }))

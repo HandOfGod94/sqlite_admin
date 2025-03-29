@@ -6,6 +6,7 @@ import lustre/attribute.{class}
 import lustre/element
 import lustre/element/html.{button, div, h4, table, td, th, tr}
 import records/records
+import sqlight
 import wisp.{type Request, type Response}
 
 fn render_record_row(records: List(String)) -> element.Element(a) {
@@ -55,9 +56,14 @@ fn page_content(
   base.layout([header, main_content])
 }
 
-pub fn records_page(_req: Request, table_name: String) -> Response {
-  let assert Some(table_schema) = table.get_schema(table_name)
-  let assert Ok(records) = records.fetch_records(table_name, table_schema)
+pub fn records_page(
+  db: sqlight.Connection,
+  _req: Request,
+  table_name: String,
+) -> Response {
+  let assert Some(table_schema) = table.get_schema(db, table_name)
+
+  let assert Ok(records) = records.fetch_records(db, table_name, table_schema)
 
   let html = page_content(table_name, table_schema, records)
 

@@ -20,10 +20,10 @@ pub type TableSchema {
   TableSchema(columns: List(ColumnInfo))
 }
 
-pub fn get_schema(table_name: String) -> Option(TableSchema) {
-  // TODO: get sample db from app context, and make it result
-  use conn <- sqlight.with_connection("./sample.db")
-
+pub fn get_schema(
+  conn: sqlight.Connection,
+  table_name: String,
+) -> Option(TableSchema) {
   let schema_decoder = {
     use cid <- decode.field(0, decode.int)
     use name <- decode.field(1, decode.string)
@@ -40,9 +40,7 @@ pub fn get_schema(table_name: String) -> Option(TableSchema) {
   }
 }
 
-pub fn get_tables() -> List(String) {
-  // TODO: get sample db from app context, and make it result
-  use conn <- sqlight.with_connection("./sample.db")
+pub fn get_tables(conn: sqlight.Connection) -> List(String) {
   let assert Ok(result) =
     s.new()
     |> s.selects([s.col("name")])

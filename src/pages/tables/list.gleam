@@ -4,6 +4,7 @@ import layouts/base
 import lustre/attribute.{class, href}
 import lustre/element
 import lustre/element/html.{a, div, table, td, th, tr}
+import sqlight
 import wisp.{type Request, type Response}
 
 fn render_table_row(table_name: String) -> element.Element(a) {
@@ -52,8 +53,8 @@ fn page_content(tables: List(String)) {
   ])
 }
 
-pub fn tables_list_page(_req: Request) -> Response {
-  let tables = table.get_tables()
+pub fn tables_list_page(db: sqlight.Connection, _req: Request) -> Response {
+  let tables = table.get_tables(db)
 
   let html = page_content(tables)
 

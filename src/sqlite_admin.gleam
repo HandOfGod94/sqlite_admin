@@ -1,13 +1,8 @@
 import gleam/erlang/process
 import mist
 import router
-import sqlight
 import wisp
 import wisp/wisp_mist
-
-pub type Context {
-  Context(db: sqlight.Connection, prefix: String)
-}
 
 pub fn main() {
   wisp.configure_logger()

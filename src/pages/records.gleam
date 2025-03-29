@@ -2,9 +2,9 @@ import gleam/list
 import gleam/option.{Some}
 import introspect/table
 import layouts/base
-import lustre/attribute.{class, href}
+import lustre/attribute.{class}
 import lustre/element
-import lustre/element/html.{a, button, div, h1, nav, table, td, th, tr}
+import lustre/element/html.{button, div, h4, table, td, th, tr}
 import records/records
 import wisp.{type Request, type Response}
 
@@ -28,17 +28,7 @@ fn page_content(
   table_schema: table.TableSchema,
   records: List(List(String)),
 ) {
-  let header =
-    div([class("bg-primary text-white p-4 mb-4")], [
-      h1([class("display-4")], [element.text("Records for " <> table_name)]),
-    ])
-
-  let navigation =
-    nav([class("mb-4")], [
-      a([class("btn btn-outline-primary me-2"), href("/admin/")], [
-        element.text("← Back to Tables"),
-      ]),
-    ])
+  let header = h4([], [element.text("Records for " <> table_name)])
 
   let header_row = [
     tr(
@@ -54,7 +44,6 @@ fn page_content(
     div([class("container mt-4")], [
       div([class("row")], [
         div([class("col-12")], [
-          navigation,
           table(
             [class("table table-striped table-hover")],
             list.append(header_row, list.map(records, render_record_row)),

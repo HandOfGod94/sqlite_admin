@@ -1,5 +1,6 @@
 import lustre/attribute.{class, href, rel, src}
-import lustre/element/html.{body, div, head, html, link, script}
+import lustre/element
+import lustre/element/html.{a, body, div, head, html, link, nav, script}
 import lustre/internals/vdom
 
 pub fn layout(children: List(vdom.Element(a))) -> vdom.Element(a) {
@@ -20,6 +21,16 @@ pub fn layout(children: List(vdom.Element(a))) -> vdom.Element(a) {
         "",
       ),
     ]),
-    body([], [div([class("container")], children)]),
+    body([], [
+      nav([class("navbar navbar-expand bg-body-tertiary mb-5")], [
+        // TODO: get root address from config
+        div([class("container-fluid")], [
+          a([class("navbar-brand"), href("/admin")], [
+            element.text("SQLite Admin"),
+          ]),
+        ]),
+      ]),
+      div([class("container")], children),
+    ]),
   ])
 }

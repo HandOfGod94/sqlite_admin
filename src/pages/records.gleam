@@ -35,7 +35,7 @@ fn page_content(
 
   let navigation =
     nav([class("mb-4")], [
-      a([class("btn btn-outline-primary me-2"), href("/admin/tables")], [
+      a([class("btn btn-outline-primary me-2"), href("/admin/")], [
         element.text("← Back to Tables"),
       ]),
     ])
@@ -68,7 +68,7 @@ fn page_content(
 
 pub fn records_page(_req: Request, table_name: String) -> Response {
   let assert Some(table_schema) = table.get_schema(table_name)
-  let records = records.fetch_records(table_name, table_schema)
+  let assert Ok(records) = records.fetch_records(table_name, table_schema)
 
   let html = page_content(table_name, table_schema, records)
 

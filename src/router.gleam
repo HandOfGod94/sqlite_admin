@@ -1,6 +1,5 @@
-import pages/home
 import pages/records
-import pages/tables_list
+import pages/tables/list as tables_list
 import wisp.{type Request, type Response}
 
 pub fn middleware(
@@ -19,10 +18,8 @@ pub fn handle_request(req: Request) -> Response {
   use req <- middleware(req)
 
   case wisp.path_segments(req) {
-    ["admin"] -> home.home_page(req)
-    ["admin", "tables"] -> tables_list.tables_list_page(req)
-    ["admin", "tables", table_name, "records"] ->
-      records.records_page(req, table_name)
+    ["admin"] -> tables_list.tables_list_page(req)
+    ["admin", table_name, "records"] -> records.records_page(req, table_name)
     _ -> wisp.not_found()
   }
 }

@@ -13,7 +13,7 @@ fn render_table_row(table_name: String) -> element.Element(a) {
       a(
         [
           class("btn btn-sm btn-primary me-2"),
-          href("/admin/tables/" <> table_name <> "/records"),
+          href("/admin/" <> table_name <> "/records"),
         ],
         [element.text("View")],
       ),

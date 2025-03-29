@@ -1,6 +1,5 @@
 import gleam/string_tree
-import pages/records
-import pages/tables/list as tables_list
+import middleware
 import wisp.{type Request, type Response}
 
 pub fn middleware(
@@ -11,20 +10,9 @@ pub fn middleware(
   use <- wisp.log_request(req)
   use <- wisp.rescue_crashes
   use req <- wisp.handle_head(req)
-  use <- admin_middleware(req)
+  use <- middleware.admin_middleware(req)
 
   handle_request(req)
-}
-
-pub fn admin_middleware(
-  req: Request,
-  app_handle_request: fn() -> Response,
-) -> Response {
-  case wisp.path_segments(req) {
-    ["admin"] -> tables_list.tables_list_page(req)
-    ["admin", table_name, "records"] -> records.records_page(req, table_name)
-    _ -> app_handle_request()
-  }
 }
 
 pub fn handle_request(req: Request) -> Response {

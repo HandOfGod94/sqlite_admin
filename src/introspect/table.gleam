@@ -30,7 +30,7 @@ pub fn get_schema(
     use type_ <- decode.field(2, decode.string)
     use is_not_null <- decode.field(3, sqlight.decode_bool())
     use is_pk <- decode.field(5, sqlight.decode_bool())
-    decode.success(ColumnInfo(cid, name, type_, is_pk, is_not_null))
+    decode.success(ColumnInfo(cid:, name:, type_:, is_pk:, is_not_null:))
   }
 
   let sql = "PRAGMA table_info(" <> table_name <> ")"

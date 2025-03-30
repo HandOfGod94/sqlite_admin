@@ -35,7 +35,7 @@ pub fn from_column_info(col_info: table.ColumnInfo) -> ValueType {
   }
 }
 
-pub fn decode_to_string(
+pub fn to_formatted_string(
   record_type: ValueType,
   value: decode.Dynamic,
   index: Int,

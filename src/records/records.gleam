@@ -24,7 +24,7 @@ pub fn fetch_records(
       use col_info, idx <- list.index_map(table_schema.columns)
       col_info
       |> values.from_column_info
-      |> values.decode_to_string(row, idx)
+      |> values.to_formatted_string(row, idx)
       |> result.unwrap("")
     }),
   )

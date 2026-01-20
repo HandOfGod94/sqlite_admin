@@ -1,6 +1,6 @@
 # sqlite_admin
 
-An sqlite browser written in gleam
+An sqlite browser written in gleam.
 
 > WIP
 
